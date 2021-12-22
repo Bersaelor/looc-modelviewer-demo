@@ -6,7 +6,7 @@ import { Typography } from '@mui/material';
 
 const StyledBox = styled(Box)(({ theme }) => ({
   maxWidth: '10em',
-  maxHeight: '10em',
+  maxHeight: '80px',
   textAlign: 'center',
   borderRadius: '8px',
   borderColor: theme.palette.primary.main
@@ -25,7 +25,9 @@ export const Thumbnail = ({
   return <StyledBox sx={{ 
     borderStyle: chosen ? 'solid' : 'none'
   }}>
-    <img src={imgSrc} alt={title} width='60px'/>
+    <Box sx={{maxHeight: '40px'}}>
+      <img src={imgSrc} alt={title} width='60px'/>
+    </Box>
 
     <Typography variant="caption">
       {title}

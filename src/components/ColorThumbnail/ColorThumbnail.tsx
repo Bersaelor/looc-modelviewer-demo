@@ -9,7 +9,6 @@ import Material from 'models/Material';
 
 const StyledBox = styled(Box)(({ theme }) => ({
   width: '5em',
-  height: '4em',
   textAlign: 'center',
   borderRadius: '8px',
   borderColor: theme.palette.primary.main

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+import { Button } from '@mui/material';
 import { CircularProgress } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { List, ListItem, ListItemButton } from '@mui/material';
+import { ImageList, ImageListItem } from '@mui/material';
 import { Typography } from '@mui/material';
 
 import ColorThumbnail from 'components/ColorThumbnail/ColorThumbnail';
@@ -16,12 +16,6 @@ import Material from 'models/Material';
 import Rendering from 'models/Rendering';
 
 import { fetchRendering } from 'API';
-
-const HorizontalList = styled(List)(({
-  display: 'flex',
-  flexDirection: 'row',
-  padding: 0
-}))
 
 export const ModelSelector = ({ appData }: { appData: AppData }) => {
 
@@ -59,38 +53,40 @@ export const ModelSelector = ({ appData }: { appData: AppData }) => {
   }, [category, model, metal]);
 
   return <>
-    <HorizontalList>
-      {appData.categories.map(c => <ListItem key={c.name}>
-        <ListItemButton onClick={() => setCategory(c)}>
+    <ImageList cols={appData.categories.length} gap={0} rowHeight={78} sx={{height: 90, marginBlockEnd: '4px'}}>
+      {appData.categories.map(c => <ImageListItem key={c.name}>
+        <Button onClick={() => setCategory(c)}>
           <Thumbnail
             imgSrc={c.image}
             title={c.localizedTitles['en'] || '?'}
             chosen={(category && category.name === c.name) || false}
           />
-        </ListItemButton>
-      </ListItem>)}
-    </HorizontalList>
-    <HorizontalList>
-      {modelsInCategory?.map(m => <ListItem key={m.name}>
-        <ListItemButton onClick={() => setModel(m)}>
-          <Thumbnail
-            imgSrc={m.image}
-            title={m.localizedNames['en'] || '?'}
-            chosen={(model && model.name === m.name) || false}
-          />
-        </ListItemButton>
-      </ListItem>)}
-    </HorizontalList>
-    <HorizontalList>
-      {metals?.map(m => <ListItem key={m.identifier}>
-        <ListItemButton onClick={() => setMetal(m)}>
+        </Button>
+      </ImageListItem>)}
+    </ImageList>
+    {modelsInCategory &&
+      <ImageList cols={modelsInCategory.length} gap={0} rowHeight={80} sx={{height: 90, marginBlockStart: '0', marginBlockEnd: '4px'}}>
+        {modelsInCategory?.map(m => <ImageListItem key={m.name}>
+          <Button onClick={() => setModel(m)}>
+            <Thumbnail
+              imgSrc={m.image}
+              title={m.localizedNames['en'] || '?'}
+              chosen={(model && model.name === m.name) || false}
+            />
+          </Button>
+        </ImageListItem>)}
+      </ImageList>
+    }
+    <ImageList cols={metals.length} gap={0} rowHeight={90} sx={{height: 128, marginBlockStart: '0', marginBlockEnd: '4px'}}>
+      {metals?.map(m => <ImageListItem key={m.identifier}>
+        <Button onClick={() => setMetal(m)}>
           <ColorThumbnail
             material={m}
             chosen={(metal && metal.identifier === m.identifier) || false}
           />
-        </ListItemButton>
-      </ListItem>)}
-    </HorizontalList>
+        </Button>
+      </ImageListItem>)}
+    </ImageList>
     {rendering && model ?
       <ModelViewer modelName={model.localizedNames['en'] || 'unknown'} rendering={rendering} />
     :
