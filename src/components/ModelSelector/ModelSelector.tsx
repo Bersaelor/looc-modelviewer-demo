@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
 import { CircularProgress } from '@mui/material';
 import { ImageList, ImageListItem } from '@mui/material';
-import { Typography } from '@mui/material';
 
 import ColorThumbnail from 'components/ColorThumbnail/ColorThumbnail';
 import Thumbnail from 'components/Thumbnail/Thumbnail';
@@ -16,7 +15,6 @@ import Material from 'models/Material';
 import Rendering from 'models/Rendering';
 
 import { fetchRendering } from 'API';
-import cssVars from '@mui/system/cssVars';
 
 export const ModelSelector = ({ appData }: { appData: AppData }) => {
 
