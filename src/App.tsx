@@ -33,7 +33,7 @@ function App() {
 
   return (
     <div className="App">
-      <Typography variant="h2">
+      <Typography variant="h4">
         LooC Modelviewer demo
       </Typography>
 

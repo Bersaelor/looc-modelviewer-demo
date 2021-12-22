@@ -16,6 +16,7 @@ import Material from 'models/Material';
 import Rendering from 'models/Rendering';
 
 import { fetchRendering } from 'API';
+import cssVars from '@mui/system/cssVars';
 
 export const ModelSelector = ({ appData }: { appData: AppData }) => {
 
@@ -26,6 +27,9 @@ export const ModelSelector = ({ appData }: { appData: AppData }) => {
   const [model, setModel] = useState<Model | undefined>(undefined);
   const [metal, setMetal] = useState<Material | undefined>(undefined);
   const [rendering, setRendering] = useState<Rendering | undefined>(undefined);
+  const [exposure, setExposure] = useState<number>(1);
+  const [shadowIntensity, setShadowIntensity] = useState<number>(0);
+  const [shadowSoftness, setShadowSoftness] = useState<number>(0.5);
 
   useEffect(() => {
     if (appData && !category && appData?.categories.length > 0) setCategory( appData?.categories[0])
@@ -77,7 +81,7 @@ export const ModelSelector = ({ appData }: { appData: AppData }) => {
         </ImageListItem>)}
       </ImageList>
     }
-    <ImageList cols={metals.length} gap={0} rowHeight={90} sx={{height: 128, marginBlockStart: '0', marginBlockEnd: '4px'}}>
+    <ImageList cols={metals.length} gap={0} rowHeight={72} sx={{height: 96, marginBlockStart: '0', marginBlockEnd: '4px'}}>
       {metals?.map(m => <ImageListItem key={m.identifier}>
         <Button onClick={() => setMetal(m)}>
           <ColorThumbnail
@@ -87,8 +91,18 @@ export const ModelSelector = ({ appData }: { appData: AppData }) => {
         </Button>
       </ImageListItem>)}
     </ImageList>
+
     {rendering && model ?
-      <ModelViewer modelName={model.localizedNames['en'] || 'unknown'} rendering={rendering} />
+      <ModelViewer
+        modelName={model.localizedNames['en'] || 'unknown'} 
+        rendering={rendering} 
+        exposure={exposure}
+        setExposure={setExposure}
+        shadowIntensity={shadowIntensity}
+        setShadowIntensity={setShadowIntensity}
+        shadowSoftness={shadowSoftness}
+        setShadowSoftness={setShadowSoftness}
+      />
     :
       <CircularProgress />
     }

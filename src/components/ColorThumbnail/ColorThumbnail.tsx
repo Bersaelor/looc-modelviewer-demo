@@ -8,7 +8,7 @@ import Material from 'models/Material';
 
 
 const StyledBox = styled(Box)(({ theme }) => ({
-  width: '5em',
+  width: '7em',
   textAlign: 'center',
   borderRadius: '8px',
   borderColor: theme.palette.primary.main
@@ -27,7 +27,7 @@ export const ColorThumbnail = ({
   return <StyledBox sx={{
     borderStyle: chosen ? 'solid' : 'none'
   }}>
-    <Box sx={{ width: '100%', height: '40px', backgroundColor: hexColor }} />
+    <Box sx={{ width: '100%', height: '32px', backgroundColor: hexColor }} />
 
     <Typography variant="caption">
       {material.localizedNames['en']}
