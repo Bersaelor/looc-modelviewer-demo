@@ -1,0 +1,23 @@
+.container.modelviewer {
+    padding-top: 20px;
+    height: 80%;
+}
+
+.modelviewer .threed-container {
+    height: 0;
+    padding-top: 50%;
+    position: relative;
+}
+
+.modelviewer model-viewer {
+    position: absolute;
+    top: -3em;
+    left: -20%;
+    width: 140%;
+    height: 100%;
+}
+
+.modelviewer {
+    width: 100%;
+    height: 100%;
+}
