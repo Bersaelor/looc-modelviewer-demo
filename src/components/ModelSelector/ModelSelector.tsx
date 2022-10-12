@@ -30,6 +30,12 @@ export const ModelSelector = ({ appData }: { appData: AppData }) => {
   const [shadowSoftness, setShadowSoftness] = useState<number>(0.5);
 
   useEffect(() => {
+    setCategory(undefined)
+    setModel(undefined)
+    setMetal(undefined)
+  }, [appData]);
+
+  useEffect(() => {
     if (appData && !category && appData?.categories.length > 0) setCategory( appData?.categories[0])
 
     if (appData && category) {

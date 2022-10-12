@@ -1,8 +1,8 @@
 import AppData from "models/AppData"
 import Rendering from 'models/Rendering'
 
-export async function fetchAppData() {
-  const response = await apiGet('https://apic.looc.io/grafix/app-data')
+export async function fetchAppData(brand: string, testing: boolean) {
+  const response = await apiGet(`https://apic.looc.io/${brand}/app-data${testing ? '?testing=true' : ''}`)
   return await response as unknown as AppData
 }
 
