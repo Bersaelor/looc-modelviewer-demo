@@ -65,7 +65,7 @@ function App() {
           </Typography>
         }
         {appData &&
-          <ModelSelector appData={appData} />
+          <ModelSelector brand={brands[brandIndex]} appData={appData} />
         }
       </Container>
     </div>

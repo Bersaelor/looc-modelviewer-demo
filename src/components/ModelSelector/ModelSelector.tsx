@@ -16,14 +16,16 @@ import Rendering from 'models/Rendering';
 
 import { fetchRendering } from 'API';
 
-export const ModelSelector = ({ appData }: { appData: AppData }) => {
+export const ModelSelector = ({ brand, appData }: { brand: string, appData: AppData }) => {
 
   const metals = appData.materials.filter(m => m.type === 'metal')
+  const plastics = appData.materials.filter(m => m.type === 'plastic')
 
   const [category, setCategory] = useState<Category | undefined>(undefined);
   const [modelsInCategory, setModelsInCategory] = useState<Model[] | undefined>(undefined);
   const [model, setModel] = useState<Model | undefined>(undefined);
   const [metal, setMetal] = useState<Material | undefined>(undefined);
+  const [plastic, setPlastic] = useState<Material | undefined>(undefined);
   const [rendering, setRendering] = useState<Rendering | undefined>(undefined);
   const [exposure, setExposure] = useState<number>(1);
   const [shadowIntensity, setShadowIntensity] = useState<number>(0);
@@ -33,7 +35,8 @@ export const ModelSelector = ({ appData }: { appData: AppData }) => {
     setCategory(undefined)
     setModel(undefined)
     setMetal(undefined)
-  }, [appData]);
+    setPlastic(undefined)
+  }, [brand]);
 
   useEffect(() => {
     if (appData && !category && appData?.categories.length > 0) setCategory( appData?.categories[0])
@@ -49,16 +52,20 @@ export const ModelSelector = ({ appData }: { appData: AppData }) => {
   }, [metals, metal]);
 
   useEffect(() => {
+    if (plastics.length > 0 && !plastic) setPlastic(plastics[0])
+  }, [plastics, plastic]);
+
+  useEffect(() => {
     if (modelsInCategory && modelsInCategory.length > 0) setModel(modelsInCategory[0])
   }, [modelsInCategory]);
 
   useEffect(() => {
-    const load = async(categoryID: string, modelID: string, metalID: string) => {
+    const load = async(categoryID: string, modelID: string, metalID: string, plasticId: string) => {
       setRendering(undefined)
-      setRendering(await fetchRendering(categoryID, modelID, undefined, metalID))
+      setRendering(await fetchRendering(brand, categoryID, modelID, plasticId, metalID))
     }
-    if (category && model && metal) load(category.name, model.name, metal.identifier)
-  }, [category, model, metal]);
+    if (category && model && metal && plastic) load(category.name, model.name, metal.identifier, plastic.identifier)
+  }, [category, model, metal, plastic]);
 
   return <>
     <ImageList cols={appData.categories.length} gap={0} rowHeight={78} sx={{height: 90, marginBlockEnd: '4px'}}>
@@ -85,12 +92,22 @@ export const ModelSelector = ({ appData }: { appData: AppData }) => {
         </ImageListItem>)}
       </ImageList>
     }
-    <ImageList cols={metals.length} gap={0} rowHeight={72} sx={{height: 96, marginBlockStart: '0', marginBlockEnd: '4px'}}>
+    <ImageList cols={metals.length} gap={0} rowHeight={56} sx={{height: 80, marginBlockStart: '0', marginBlockEnd: '4px'}}>
       {metals?.map(m => <ImageListItem key={m.identifier}>
         <Button onClick={() => setMetal(m)}>
           <ColorThumbnail
             material={m}
             chosen={(metal && metal.identifier === m.identifier) || false}
+          />
+        </Button>
+      </ImageListItem>)}
+    </ImageList>
+    <ImageList cols={plastics.length} gap={0} rowHeight={56} sx={{height: 80, marginBlockStart: '0', marginBlockEnd: '4px'}}>
+      {plastics?.map(m => <ImageListItem key={m.identifier}>
+        <Button onClick={() => setPlastic(m)}>
+          <ColorThumbnail
+            material={m}
+            chosen={(plastic && plastic.identifier === m.identifier) || false}
           />
         </Button>
       </ImageListItem>)}

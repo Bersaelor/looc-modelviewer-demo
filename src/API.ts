@@ -6,9 +6,9 @@ export async function fetchAppData(brand: string, testing: boolean) {
   return await response as unknown as AppData
 }
 
-export async function fetchRendering(categoryID: string, modelID: string, plasticID: string = '000templeplastic', metalID: string) {
+export async function fetchRendering(brand: string, categoryID: string, modelID: string, plasticID: string = '000templeplastic', metalID: string) {
   // e.g. 'https://apic.looc.io/grafix/rendering/bloxx/Bloxx3?plastic=000templeplastic&metal=01titanium'
-  const response = await apiGet(`https://apic.looc.io/grafix/rendering/${categoryID}/${modelID}`, {
+  const response = await apiGet(`https://apic.looc.io/${brand}/rendering/${categoryID}/${modelID}`, {
     plastic: plasticID,
     metal: metalID
   })

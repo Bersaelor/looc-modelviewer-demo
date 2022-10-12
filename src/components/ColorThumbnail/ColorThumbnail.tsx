@@ -27,7 +27,7 @@ export const ColorThumbnail = ({
   return <StyledBox sx={{
     borderStyle: chosen ? 'solid' : 'none'
   }}>
-    <Box sx={{ width: '100%', height: '32px', backgroundColor: hexColor }} />
+    <Box sx={{ width: '100%', height: '24px', backgroundColor: hexColor }} />
 
     <Typography variant="caption">
       {material.localizedNames['en']}
