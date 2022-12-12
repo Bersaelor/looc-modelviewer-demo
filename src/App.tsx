@@ -35,7 +35,7 @@ function App() {
       setIsLoading(false)
     };
     loadData()
-  }, [brandIndex]);
+  }, [brandIndex, isTesting]);
 
 
   return (

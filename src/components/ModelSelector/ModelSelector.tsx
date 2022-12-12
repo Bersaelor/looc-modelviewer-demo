@@ -65,7 +65,7 @@ export const ModelSelector = ({ brand, appData }: { brand: string, appData: AppD
       setRendering(await fetchRendering(brand, categoryID, modelID, plasticId, metalID))
     }
     if (category && model && metal && plastic) load(category.name, model.name, metal.identifier, plastic.identifier)
-  }, [category, model, metal, plastic]);
+  }, [brand, category, model, metal, plastic]);
 
   return <>
     <ImageList cols={appData.categories.length} gap={0} rowHeight={78} sx={{height: 90, marginBlockEnd: '4px'}}>
